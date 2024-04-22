@@ -3,7 +3,7 @@ import mqtt from "mqtt";
 class MqttHandler {
     constructor() {
         this.mqttClient = null;
-        this.host = "mqtt://ec2-44-203-174-42.compute-1.amazonaws.com:1883";
+        this.host = "mqtt://ec2-3-92-132-184.compute-1.amazonaws.com:1883";
     }
 
     connect() {
@@ -18,7 +18,7 @@ class MqttHandler {
             console.log(`Mqtt client connected`);
         });
 
-        this.mqttClient.subscribe("test/topic1/message", { qos: 0 });
+        this.mqttClient.subscribe("/test/topic/1", { qos: 0 });
 
         this.mqttClient.on("message", (topic, message) => {
             console.log(`${message} received from topic ${topic}`);
@@ -27,6 +27,10 @@ class MqttHandler {
         this.mqttClient.on("close", () => {
             console.log(`mqtt client disconnected`);
         });
+    }
+
+    publish(topic, message) {
+        this.mqttClient.publish(topic, message);
     }
 }
 

@@ -8,8 +8,9 @@ mqtt_handle.connect()
 const app = express()
 app.use(express.json())
 
-app.get("/", (_req, res) => {
-    res.json("hola")
+app.get("/on", (_req, res) => {
+    mqtt_handle.publish("/test/topic/1", "Hello from server")
+    res.json("ON");
 })
 
 app.listen(3000, () => {
