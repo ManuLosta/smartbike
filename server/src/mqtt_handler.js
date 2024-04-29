@@ -18,10 +18,13 @@ class MqttHandler {
             console.log(`Mqtt client connected`);
         });
 
-        this.mqttClient.subscribe("/test/topic/1", { qos: 0 });
+        this.mqttClient.subscribe("smartbike/inel00/#", { qos: 0 });
 
         this.mqttClient.on("message", (topic, message) => {
             console.log(`${message} received from topic ${topic}`);
+            if (topic === "led/inel00/00/velocity/new") {
+                console.log("Velocity received");
+            }
         })
 
         this.mqttClient.on("close", () => {

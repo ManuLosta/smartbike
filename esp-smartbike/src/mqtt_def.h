@@ -22,6 +22,7 @@ typedef struct
 static const topic_t topics[] =
 {
     {   "toggle", toggle_led },
+    {   "new", new_session },
     {   NULL }
 };
 
@@ -31,6 +32,7 @@ static const char *subs[] =
     "#",
 #elif (SUB_LIST==1)
     "led/toggle",
+    "session/start/#",
 #else
     #error "Bad SUB_LIST symbol, out of range"
 #endif
