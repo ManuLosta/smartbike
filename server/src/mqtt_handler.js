@@ -3,7 +3,7 @@ import mqtt from "mqtt";
 class MqttHandler {
     constructor() {
         this.mqttClient = null;
-        this.host = "mqtt://ec2-3-92-132-184.compute-1.amazonaws.com:1883";
+        this.host = "mqtt://ec2-54-211-108-43.compute-1.amazonaws.com:1883";
     }
 
     connect() {
