@@ -1,4 +1,6 @@
 import mqtt from "mqtt";
+import mongoose from "mongoose";
+import Session from "./models/session.js";
 
 class MqttHandler {
     constructor() {
@@ -22,8 +24,10 @@ class MqttHandler {
 
         this.mqttClient.on("message", (topic, message) => {
             console.log(`${message} received from topic ${topic}`);
-            if (topic === "led/inel00/00/velocity/new") {
-                console.log("Velocity received");
+            if (topic === "smartbike/inel00/session/start/new") {
+                const session = Session();
+                session.save();
+                console.log("Created session with id:", session.id);
             }
         })
 
