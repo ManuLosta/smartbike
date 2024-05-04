@@ -6,7 +6,6 @@
  */
 
 #include <Arduino.h>
-
 #include "hw_actions.h"
 
 void

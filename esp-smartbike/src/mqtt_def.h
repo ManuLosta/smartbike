@@ -22,7 +22,7 @@ typedef struct
 static const topic_t topics[] =
 {
     {   "toggle", toggle_led },
-    {   "new", new_session },
+    {   "start", new_session },
     {   NULL }
 };
 
@@ -32,7 +32,7 @@ static const char *subs[] =
     "#",
 #elif (SUB_LIST==1)
     "led/toggle",
-    "session/start/#",
+    "session/+/start",
 #else
     #error "Bad SUB_LIST symbol, out of range"
 #endif
@@ -44,7 +44,7 @@ static const char *subs[] =
 #define subs_string(buf)        sprintf(buf,"%s/%s",        MAIN_NAME,SUB_NAME)
 
 #if (MQTT==0)                                       
-    #define BROKER_NAME "ec2-54-211-108-43.compute-1.amazonaws.com"         //  Mosquitto in local network
+    #define BROKER_NAME "ec2-44-201-80-117.compute-1.amazonaws.com"         //  Mosquitto in local network
     #define BROKER_PORT 1883
     #define BROKER_USER ""
     #define BROKER_PASS ""
