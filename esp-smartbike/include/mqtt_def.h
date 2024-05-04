@@ -1,5 +1,7 @@
 #ifndef __MQTT_DEF_H__
 #define __MQTT_DEF_H__
+#include <mqtt_actions.h>
+#include <cstddef>
 
 /*
  *  mqtt_def.h
@@ -23,7 +25,7 @@ static const topic_t topics[] =
 {
     {   "toggle", toggle_led },
     {   "start", new_session },
-    {   NULL }
+    { NULL }
 };
 
 static const char *subs[] =
