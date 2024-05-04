@@ -10,7 +10,6 @@ TinyGPSPlus gps;
 #include "display.h"
 #include "wifi_ruts.h"
 #include "mqtt.h"
-#include "hw.h"
 #include "globals.h"
 
 Data data;
@@ -23,7 +22,6 @@ setup(void)
 
     init_display(); 
     connect_wifi();
-    init_hw();
     init_mqtt();
 }
 
