@@ -31,19 +31,20 @@ void
 loop(void)
 {
   test_mqtt();      
-  if (HAS_SESSION) {
-    while (Serial2.available() > 0)
-    if (gps.encode(Serial2.read()))
-    {
-      display_data(data);
-    }
+  while (Serial2.available() > 0)
+  if (gps.encode(Serial2.read())) {
+    data.loc_lat = gps.location.lat();
+    data.loc_lng = gps.location.lng();
+    data.speed = gps.speed.kmph();
+    data.satelites = gps.satellites.value();
 
+    if (HAS_SESSION) {
+      display_data(data);
+    } else { display_no_session(); }
+  }
   if (millis() > 5000 && gps.charsProcessed() < 10) {
     Serial.println(F("No GPS detected: check wiring."));
     while (true);
   }
-  } else {
-    display_no_session();
-  }                   
 }
 

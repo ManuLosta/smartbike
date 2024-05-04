@@ -20,17 +20,18 @@ void init_display()
 
 void display_data(Data data)
 {
-    Serial.println("Displaying data");
-    Serial.println(data.loc_lat);
-    Serial.println(data.loc_lng);
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(SH110X_WHITE);
     display.setCursor(0, 0);
-    display.println("Lat: ");
+    display.print("Lat: ");
     display.println(data.loc_lat);
-    display.println("Lon: ");
+    display.print("Lon: ");
     display.println(data.loc_lng);
+    display.print("Speed: ");
+    display.println(data.speed);
+    display.print("Satelites: ");
+    display.println(data.satelites);
     display.display();
 }
 

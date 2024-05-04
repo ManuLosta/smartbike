@@ -9,6 +9,7 @@ struct Data
   double distance;
   double alt;
   double p_altitude;
+  int satelites;
 };
 
 #endif // DEFINES_H
