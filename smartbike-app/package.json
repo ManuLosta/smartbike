@@ -9,10 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "buffer": "^6.0.3",
     "expo": "~50.0.14",
     "expo-status-bar": "~1.11.1",
+    "mqtt": "^5.5.5",
     "react": "18.2.0",
-    "react-native": "0.73.6"
+    "react-native": "0.73.6",
+    "url": "^0.11.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
