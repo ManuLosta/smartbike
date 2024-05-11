@@ -1,11 +1,17 @@
-import mongoose from "mongoose";
-const { Schema } = mongoose;
+import mongoose from 'mongoose'
+import Velocity from './velocity.js'
+import Location from "./location.js";
+const { Schema } = mongoose
 
 const sessionSchema = new Schema({
+    name: String,
     start_time: { type: Date, default: Date.now },
     end_time: Date,
-    velocity: [Number],
-    distance: [Number],
+    velocity: [Velocity.schema],
+    location: [Location.schema],
+    distance: Number,
+    calories: Number,
+    positive_elevation: Number,
 })
 
-export default mongoose.model("Session", sessionSchema);
+export default mongoose.model('Session', sessionSchema)
