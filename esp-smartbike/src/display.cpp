@@ -38,9 +38,20 @@ void display_data(Data data)
 void display_no_session() 
 {
     display.clearDisplay();
-    display.setTextSize(1);
+    display.setTextSize(2);
     display.setTextColor(SH110X_WHITE);
     display.setCursor(0, 0);
-    display.println("No session");
+    display.println("NO SESSION");
+    display.println("STARTED");
+    display.display();
+}
+
+void display_no_signal()
+{
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(SH110X_WHITE);
+    display.setCursor(0, 0);
+    display.println("NO SIGNAL");
     display.display();
 }

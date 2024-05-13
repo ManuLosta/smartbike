@@ -11,14 +11,18 @@ TinyGPSPlus gps;
 #include "wifi_ruts.h"
 #include "mqtt.h"
 #include "globals.h"
+#include "mqtt_actions.h"
 
 Data data;
+
+unsigned long lastPublishTime = 0; // Variable to store the last publish time
+const unsigned long publishInterval = 5000; // Interval in milliseconds (5 seconds)
 
 void
 setup(void)
 {
     Serial.begin(BAUD);
-    Serial2.begin(9600);
+    Serial2.begin(9600);  
 
     init_display(); 
     connect_wifi();
@@ -29,16 +33,28 @@ void
 loop(void)
 {
   test_mqtt();      
+  unsigned long currentMillis = millis();
   while (Serial2.available() > 0)
   if (gps.encode(Serial2.read())) {
     data.loc_lat = gps.location.lat();
     data.loc_lng = gps.location.lng();
     data.speed = gps.speed.kmph();
+    data.alt = gps.altitude.meters();
     data.satelites = gps.satellites.value();
 
-    if (HAS_SESSION) {
-      display_data(data);
-    } else { display_no_session(); }
+    if (data.satelites > 3) {
+      if (HAS_SESSION) {
+        display_data(data);
+        if (currentMillis - lastPublishTime >= publishInterval) {
+            publish_data(data);
+            lastPublishTime = currentMillis; // Update last publish time
+        }
+      } else { 
+        display_no_session(); 
+      }
+    } else {
+        display_no_signal();
+    }
   }
   if (millis() > 5000 && gps.charsProcessed() < 10) {
     Serial.println(F("No GPS detected: check wiring."));
