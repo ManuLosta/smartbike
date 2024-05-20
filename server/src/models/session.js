@@ -12,6 +12,7 @@ const sessionSchema = new Schema({
     distance: Number,
     calories: Number,
     positive_elevation: Number,
+    isActive: { type: Boolean, default: true },
 })
 
 export default mongoose.model('Session', sessionSchema)
