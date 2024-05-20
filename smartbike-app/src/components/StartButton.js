@@ -4,14 +4,19 @@ import { useMqtt } from "../context/MqttContext"
 export default function StartButton() {
   const { mqttClient, mqttStatus } = useMqtt()
 
-  const handlePress = () => {
-    mqttClient.publish("test", "hola")
+  const handlePressStart = () => {
+    mqttClient.publish("smartbike/inel00/session/start", "hola")
+  }
+
+  const handlePressStop = () => {
+    mqttClient.publish("smartbike/inel00/session/stop", "chau")
   }
 
   return (
     <View>
       <Text>Connection status: {mqttStatus}</Text>
-      <Button onPress={handlePress} title="Start" />
+      <Button onPress={handlePressStart} title="Start" />
+      <Button onPress={handlePressStop} title="Stop" />
     </View>
   )
 }
