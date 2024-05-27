@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
+#include <stdlib.h> // For atoi
 
 #include "mqtt_actions.h"       //  Prototypes of functions whose code are here
 #include "globals.h"            //  Access to global variables
@@ -47,4 +48,10 @@ publish_data(Data data) {
     String output;
     serializeJson(jsonData, output);
     do_publish("data/live", output.c_str());
+}
+
+void setWeight(int origin, char *msg)
+{
+    int value = atoi(msg);
+    WEIGHT = value;
 }

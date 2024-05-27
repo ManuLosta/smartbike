@@ -25,7 +25,7 @@ export const appendData = async (dataJson) => {
     const data = JSON.parse(dataJson)
     const session = await Session.findOne({ isActive: true }).exec()
 
-    const location = Location({ latitude: data.loc.lat, longitude: data.loc.lon })
+    const location = Location({ latitude: data.loc.lat, longitude: data.loc.lng })
     const speed = Velocity({ velocity: data.speed })
 
     if (!session) throw new Error('No active Session')

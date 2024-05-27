@@ -25,6 +25,7 @@ static const topic_t topics[] =
 {
     {   "start", new_session },
     {   "stop", stop_session },
+    {   "weight", setWeight  },
     { NULL }
 };
 
@@ -34,6 +35,7 @@ static const char *subs[] =
     "#",
 #elif (SUB_LIST==1)
     "session/#",
+    "set/weight",
 #else
     #error "Bad SUB_LIST symbol, out of range"
 #endif

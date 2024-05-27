@@ -22,17 +22,24 @@ double totalSpeed = 0.0;
 int speedCount = 0;
 unsigned long lastSpeedTime = 0; // Time when the last speed was read
 
+double speeds[] = {0.0, 13.0, 16.0, 19.0, 22.5, 24.0, 25.5, 27.0, 29.0, 30.55, 32.0, 33.5, 37.0, 40.0};
+double coefficient[] = {0.0, 0.00049167, 0.00059167, 0.00071, 0.00085333, 0.000935, 0.001025, 0.001125, 0.00123333, 0.00135167, 0.001485, 0.001625, 0.001955, 0.00235167};
+
+int findClosestIndex(double arr[], int left, int right, int target);
+
 void setup(void)
 {
   Serial.begin(BAUD);
   Serial2.begin(9600);
 
+  WEIGHT = 60;
+
   init_display();
   connect_wifi();
   init_mqtt();
 
-  // Initialize distance
   data.distance = 0.0;
+  data.p_altitude = 0.0;
 }
 
 void loop(void)
@@ -50,6 +57,7 @@ void loop(void)
         data.speed = gps.speed.kmph();
         data.alt = gps.altitude.meters();
         data.satelites = gps.satellites.value();
+        data.calories += coefficient[findClosestIndex(speeds, 0, 13, data.speed)] * WEIGHT;
 
         unsigned long currentSpeedTime = millis();
         if (lastSpeedTime != 0)
@@ -109,5 +117,29 @@ void loop(void)
     Serial.println(F("No GPS detected: check wiring."));
     while (true)
       ;
+  }
+}
+
+int findClosestIndex(double arr[], int left, int right, int target) {
+  // base case: when there is only one element in the array
+  if (left == right) {
+    return left;
+  }
+
+  // calculate the middle index
+  int mid = (left + right) / 2;
+
+  // recursively search the left half of the array
+  int leftClosest = findClosestIndex(arr, left, mid, target);
+
+  // recursively search the right half of the array
+  int rightClosest = findClosestIndex(arr, mid + 1, right, target);
+
+  // compare the absolute differences of the closest elements in the left and right halves
+  if (abs(leftClosest - target) <= abs(rightClosest - target)) {
+    return leftClosest;
+  }
+  else {
+    return rightClosest;
   }
 }
