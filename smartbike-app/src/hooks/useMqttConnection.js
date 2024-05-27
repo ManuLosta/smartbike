@@ -17,7 +17,7 @@ function useMqttConnection(doMqttConnection) {
       onMessage: (topic, message) => {
         console.log("Received message:", { topic, message: message.toString() });
         setMqttData(() => ({
-          message,
+          message: JSON.parse(message.toString()),
           topic,
         }));
       },
