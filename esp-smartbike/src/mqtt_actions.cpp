@@ -30,7 +30,7 @@ publish_data(Data data) {
     snprintf(speedStr, sizeof(speedStr), "%.2f", data.speed);
     snprintf(locLonStr, sizeof(locLonStr), "%.6f", data.loc_lng);
     snprintf(locLatStr, sizeof(locLatStr), "%.6f", data.loc_lat);
-    snprintf(disStr, sizeof(disStr), "%.2f", data.loc_lng);
+    snprintf(disStr, sizeof(disStr), "%.2f", data.distance);
     snprintf(altStr, sizeof(altStr), "%.2f", data.alt);
     snprintf(p_altStr, sizeof(p_altStr), "%.2f", data.p_altitude);
     snprintf(calStr, sizeof(calStr), "%.2f", data.calories);

@@ -10,8 +10,9 @@ const sessionSchema = new Schema({
     velocity: [Velocity.schema],
     location: [Location.schema],
     distance: { type: Number, default: 0 },
-    calories: Number,
-    positive_elevation: Number,
+    calories: { type: Number, default: 0 },
+    altitude: Number,
+    p_altitude: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },
 })
 

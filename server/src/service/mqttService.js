@@ -33,6 +33,7 @@ export const appendData = async (dataJson) => {
     session.velocity.push(speed)
     session.location.push(location)
     session.distance = data.distance
+    session.altitude = data.altitude
 
     await session.save()
 }
