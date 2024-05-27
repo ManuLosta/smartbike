@@ -21,23 +21,18 @@ export const endSession = async () => {
     )
 }
 
-export const appendSpeed = async (speed) => {
+export const appendData = async (dataJson) => {
+    const data = JSON.parse(dataJson)
     const session = await Session.findOne({ isActive: true }).exec()
-    const velocity = Velocity({ velocity: speed })
 
-    if (!session) throw new Error('No active sesion')
+    const location = Location({ latitude: data.loc.lat, longitude: data.loc.lon })
+    const speed = Velocity({ velocity: data.speed })
 
-    session.velocity.push(velocity)
-    await session.save()
-}
+    if (!session) throw new Error('No active Session')
 
-export const appendLocation = async (location) => {
-    const data = JSON.parse(location)
-    const session = await Session.findOne({ isActive: true }).exec()
-    const newLocation = Location({ latitude: data.lat, longitude: data.lon })
+    session.velocity.push(speed)
+    session.location.push(location)
+    session.distance = data.distance
 
-    if (!session) throw new Error('No active session')
-
-    session.location.push(newLocation)
     await session.save()
 }

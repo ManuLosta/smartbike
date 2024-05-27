@@ -36,13 +36,21 @@ loop(void)
   unsigned long currentMillis = millis();
   while (Serial2.available() > 0)
   if (gps.encode(Serial2.read())) {
-    data.loc_lat = gps.location.lat();
-    data.loc_lng = gps.location.lng();
-    data.speed = gps.speed.kmph();
-    data.alt = gps.altitude.meters();
-    data.satelites = gps.satellites.value();
 
     if (data.satelites > 3) {
+      data.loc_lat = gps.location.lat();
+      data.loc_lng = gps.location.lng();
+      data.speed = gps.speed.kmph();
+      data.alt = gps.altitude.meters();
+      data.satelites = gps.satellites.value();
+      data.distance += data.speed * (1 / 3600);
+
+      double new_altitude = gps.altitude.meters();
+      if (data.alt < new_altitude) {
+        data.p_altitude += (new_altitude - data.alt);
+      }
+      data.alt = new_altitude;
+
       if (HAS_SESSION) {
         display_data(data);
         if (currentMillis - lastPublishTime >= publishInterval) {

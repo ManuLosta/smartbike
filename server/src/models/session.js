@@ -9,7 +9,7 @@ const sessionSchema = new Schema({
     end_time: Date,
     velocity: [Velocity.schema],
     location: [Location.schema],
-    distance: Number,
+    distance: { type: Number, default: 0 },
     calories: Number,
     positive_elevation: Number,
     isActive: { type: Boolean, default: true },

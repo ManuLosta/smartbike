@@ -10,6 +10,7 @@ struct Data
   double alt;
   double p_altitude;
   int satelites;
+  double calories;
 };
 
 #endif // DEFINES_H

@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 
 import MqttHandler from './mqtt/mqtt_handler.js'
+import { router } from './routes/session.route.js'
 
 const mqtt_handle = new MqttHandler()
 mqtt_handle.connect()
@@ -10,11 +11,7 @@ mqtt_handle.connect()
 const app = express()
 app.use(express.json())
 app.use(cors())
-
-app.get('/on', (_req, res) => {
-    mqtt_handle.publish('smartbike/inel00/led/toggle', '1')
-    res.json('ON')
-})
+app.use(router)
 
 const start = async () => {
     try {
