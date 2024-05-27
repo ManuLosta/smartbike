@@ -42,6 +42,7 @@ publish_data(Data data) {
     jsonData["distance"] = disStr;
     jsonData["p_altitude"] = p_altStr;
     jsonData["calories"] = calStr;
+    jsonData["altitude"] = altStr;
 
     String output;
     serializeJson(jsonData, output);
