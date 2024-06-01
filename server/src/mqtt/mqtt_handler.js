@@ -1,10 +1,12 @@
 import mqtt from 'mqtt'
 import { appendData, createSession, endSession } from '../service/mqttService.js'
+import dotenv from 'dotenv';
+dotenv.config()
 
 class MqttHandler {
     constructor() {
         this.mqttClient = null
-        this.host = 'mqtt://ec2-18-232-20-96.compute-1.amazonaws.com:1883'
+        this.host = `mqtt://${process.env.MQTT_HOST}:${process.env.MQTT_PORT}`
     }
 
     connect() {
