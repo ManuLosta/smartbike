@@ -25,7 +25,7 @@ export const MqttProvider = ({ children }) => {
         if (error) {
           setMqttStatus(`TopicError: ${topic}`);
           setMqttError(
-            `Name: ${error?.name}\nMessage: ${error?.message}\nCode: ${error?.code}`
+            `Name: ${error?.name}\nMessage: ${error?.message}\nCode: ${error?.code}`,
           );
         }
       });

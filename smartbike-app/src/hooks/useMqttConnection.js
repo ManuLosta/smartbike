@@ -15,7 +15,6 @@ function useMqttConnection(doMqttConnection) {
       setMqttError,
       uniqueId: "react-native-0000",
       onMessage: (topic, message) => {
-        console.log("Received message:", { topic, message: message.toString() });
         setMqttData(() => ({
           message: JSON.parse(message.toString()),
           topic,

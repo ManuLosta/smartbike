@@ -1,29 +1,23 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { MqttProvider } from '../../context/MqttContext';
-import StartButton from '../../components/StartButton';
-import RunningSessionScreen from '../../components/RunningSessionScreen';
-import { StatusBar } from 'expo-status-bar';
-
-
+import {View, StyleSheet } from "react-native";
+import StartButton from "../../components/StartButton";
+import SessionStats from "../../components/SessionStats";
+import {StatusBar} from "expo-status-bar";
+import Constants from "expo-constants/src/Constants";
 
 export default function Tab() {
   return (
-    <MqttProvider>
-        <View style= { styles.container } >
-        <StartButton />
-        < RunningSessionScreen />
-        <StatusBar style="auto" />
-            </View>
-    </MqttProvider>
+    <View style={styles.container}>
+      <SessionStats/>
+      <StartButton/>
+      <StatusBar style=""/>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: Constants.statusBarHeight,
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-},
-
+    backgroundColor: "#fff",
+  },
 });

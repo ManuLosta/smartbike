@@ -1,8 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useMqtt } from "../context/MqttContext";
 import { useEffect } from "react";
-import { Ionicons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import Constants from "expo-constants/src/Constants";
 
 export default function StartButton() {
   const { mqttClient, mqttStatus } = useMqtt();
@@ -29,53 +30,29 @@ export default function StartButton() {
           <Ionicons name="pause-sharp" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <View
-        style={[
-          styles.statusContainer,
-          mqttStatus === "Connected" ? styles.connected : styles.disconnected,
-        ]}
-      >
-        <Text style={styles.statusText}>Connection status: {mqttStatus}</Text>
-      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    padding: 20,
+    alignItems: "center",
+    padding: 10,
   },
   buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '60%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "60%",
     marginVertical: 20,
   },
   button: {
-    backgroundColor: 'green',
+    backgroundColor: "green",
     padding: 10,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 60,
     height: 60,
-  },
-  statusContainer: {
-    padding: 10,
-    margin: 20,
-    borderRadius: 5,
-    width: '80%',
-    alignItems: 'center',
-  },
-  connected: {
-    backgroundColor: 'limegreen',
-  },
-  disconnected: {
-    backgroundColor: 'grey',
-  },
-  statusText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
+
+  }
 });
