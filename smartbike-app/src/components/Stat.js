@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   value: {
+    fontWeight: "bold",
     fontSize: 42,
   },
   name: {

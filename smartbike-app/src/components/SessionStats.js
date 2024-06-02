@@ -8,7 +8,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import { AntDesign } from "@expo/vector-icons";
 import Stat from "./Stat";
 
-export default function SessionStats() {
+export default function SessionStats({ stats }) {
   const { mqttClient, subscribeToTopic, mqttData } = useMqtt();
 
   useEffect(() => {
@@ -26,16 +26,16 @@ export default function SessionStats() {
   return (
     <View style={styles.container}>
       <Row>
-        <Stat name="SPEED (KM/H)" icon="speedometer" value={mqttData.message?.speed || "--"} />
-        <Stat name="DISTANCE (M)" icon="map" value={mqttData.message?.distance || "--"} />
+        <Stat name="SPEED (KM/H)" icon="map" value={stats?.speed || "--"} />
+        <Stat name="DISTANCE (M)" icon="map" value={stats?.distance || "--"} />
       </Row>
       <Row>
-        <Stat name="ALTITUDE (M)" icon="arrow-up" value={mqttData.message?.altitude || "--"} />
-        <Stat name="POSITIVE ALTITUDE" icon="arrow-up" value={mqttData.message?.p_altitude || "--"} />
+        <Stat name="ALTITUDE (M)" icon="arrow-up" value={stats?.altitude || "--"} />
+        <Stat name="POSITIVE ALTITUDE" icon="arrow-up" value={stats?.p_altitude || "--"} />
       </Row>
       <Row>
-        <Stat name="CALORIES (KCAL)" icon="fire" value={mqttData.message?.calories || "--"} />
-        <Stat name="TIME" icon="time" value={mqttData.message?.time || "--"} />
+        <Stat name="CALORIES (KCAL)" icon="fire" value={stats?.calories || "--"} />
+        <Stat name="TIME" icon="map" value={"--"} />
       </Row>
     </View>
   );
