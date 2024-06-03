@@ -14,6 +14,17 @@ TinyGPSPlus gps;
 
 Data data;
 
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50; 
+
+const int BUTTON_PIN_PREV = 36;
+const int BUTTON_PIN_NEXT = 39;
+
+int prevButtonState;          
+int lastPrevButtonState = LOW;
+int nextButtonState;
+int lastNextButtonState;
+
 unsigned long lastPublishTime = 0;          // Variable to store the last publish time
 const unsigned long publishInterval = 5000; // Interval in milliseconds (5 seconds)
 
@@ -26,6 +37,7 @@ double speeds[] = {0.0, 13.0, 16.0, 19.0, 22.5, 24.0, 25.5, 27.0, 29.0, 30.55, 3
 double coefficient[] = {0.0, 0.00049167, 0.00059167, 0.00071, 0.00085333, 0.000935, 0.001025, 0.001125, 0.00123333, 0.00135167, 0.001485, 0.001625, 0.001955, 0.00235167};
 
 int findClosestIndex(double arr[], int left, int right, int target);
+void checkButtons();
 
 void setup(void)
 {
@@ -37,6 +49,9 @@ void setup(void)
   init_display();
   connect_wifi();
   init_mqtt();
+
+  pinMode(BUTTON_PIN_PREV, INPUT);
+  pinMode(BUTTON_PIN_NEXT, INPUT);
 
   data.distance = 0.0;
   data.p_altitude = 0.0;
@@ -50,7 +65,7 @@ void loop(void)
   {
     if (gps.encode(Serial2.read()))
     {
-      if (gps.satellites.value() > 2)
+      if (gps.satellites.value() >= 0)
       {
         data.loc_lat = gps.location.lat();
         data.loc_lng = gps.location.lng();
@@ -83,6 +98,7 @@ void loop(void)
 
         if (HAS_SESSION)
         {
+          checkButtons();
           display_data(data);
           if (currentMillis - lastPublishTime >= publishInterval)
           {
@@ -118,6 +134,35 @@ void loop(void)
     while (true)
       ;
   }
+}
+
+
+void checkButtons() 
+{
+  int readPrev = digitalRead(BUTTON_PIN_PREV);
+  int readNext = digitalRead(BUTTON_PIN_NEXT);
+
+
+  if ((millis() - lastDebounceTime) > debounceDelay) 
+  {
+    if (readPrev != prevButtonState) {
+      prevButtonState = readPrev;
+      if (prevButtonState == HIGH) 
+      {
+        SCREEN = 0;
+      }
+    } else if (readNext != nextButtonState) 
+    {
+      nextButtonState = readNext;
+      if (nextButtonState == HIGH) 
+      {
+        SCREEN = 1;
+      }
+    }
+  }
+
+  lastNextButtonState = readNext;
+  lastPrevButtonState = readPrev;
 }
 
 int findClosestIndex(double arr[], int left, int right, int target) {

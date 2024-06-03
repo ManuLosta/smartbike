@@ -2,6 +2,7 @@
 #include <display.h>
 #include <Wire.h>
 #include <Adafruit_SH110X.h>
+#include <globals.h>
 
 #define SCREEN_WIDTH 129 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -18,24 +19,24 @@ void init_display()
     display.display();
 }
 
+void display_data0(Data data);
+void display_data1(Data data);
+
 void display_data(Data data)
 {
-    display.clearDisplay();
-    display.setTextSize(1);
-    display.setTextColor(SH110X_WHITE);
-    display.setCursor(0, 0);
-    display.print("Lat: ");
-    display.println(data.loc_lat);
-    display.print("Lon: ");
-    display.println(data.loc_lng);
-    display.print("Speed: ");
-    display.println(data.speed);
-    display.print("Satelites: ");
-    display.println(data.satelites);
-    display.display();
+    switch (SCREEN)
+    {
+    case 0:
+        display_data0(data);
+        break;
+
+    case 1:
+        display_data1(data);
+        break;
+    }
 }
 
-void display_no_session() 
+void display_no_session()
 {
     display.clearDisplay();
     display.setTextSize(2);
@@ -53,5 +54,44 @@ void display_no_signal()
     display.setTextColor(SH110X_WHITE);
     display.setCursor(0, 0);
     display.println("NO SIGNAL");
+    display.display();
+}
+
+void display_data0(Data data)
+{
+    display.clearDisplay();
+    display.setCursor(8, 10);
+    display.setTextSize(3);
+    display.print(String(int(data.speed)));
+    display.setTextSize(1);
+    display.print("km/h");
+    display.setTextSize(2);
+    display.setCursor(8, 40);
+    display.print(String(data.distance));
+    display.setTextSize(1);
+    display.print("km");
+    display.display();
+}
+
+void display_data1(Data data)
+{
+    display.clearDisplay();
+    display.setCursor(10, 16);
+    display.setTextSize(3);
+    display.print(String(int(data.calories)));
+    display.setTextSize(1);
+    display.print("cal");
+    display.display();
+}
+
+void display_weight()
+{
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setCursor(0, 0);
+    display.println("New");
+    display.println("weight: ");
+    display.print(String(WEIGHT));
+    display.print(" kg");
     display.display();
 }

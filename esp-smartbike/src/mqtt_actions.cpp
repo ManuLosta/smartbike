@@ -5,6 +5,7 @@
 #include "mqtt_actions.h"       //  Prototypes of functions whose code are here
 #include "globals.h"            //  Access to global variables
 #include "mqtt.h"
+#include "display.h"
 
 void 
 new_session(int origin, char *msg) {
@@ -54,4 +55,5 @@ void setWeight(int origin, char *msg)
 {
     int value = atoi(msg);
     WEIGHT = value;
+    display_weight();
 }
