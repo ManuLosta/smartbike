@@ -16,12 +16,8 @@ export default function SessionStats({ stats }) {
   }, [mqttClient]);
 
   const Row = ({ children }) => {
-    return (
-      <View style={styles.row}>
-        {children}
-      </View>
-    )
-  }
+    return <View style={styles.row}>{children}</View>;
+  };
 
   return (
     <View style={styles.container}>
@@ -30,11 +26,23 @@ export default function SessionStats({ stats }) {
         <Stat name="DISTANCE (M)" icon="map" value={stats?.distance || "--"} />
       </Row>
       <Row>
-        <Stat name="ALTITUDE (M)" icon="arrow-up" value={stats?.altitude || "--"} />
-        <Stat name="POSITIVE ALTITUDE" icon="arrow-up" value={stats?.p_altitude || "--"} />
+        <Stat
+          name="ALTITUDE (M)"
+          icon="arrow-up"
+          value={stats?.altitude || "--"}
+        />
+        <Stat
+          name="POSITIVE ALTITUDE"
+          icon="arrow-up"
+          value={stats?.p_altitude || "--"}
+        />
       </Row>
       <Row>
-        <Stat name="CALORIES (KCAL)" icon="fire" value={stats?.calories || "--"} />
+        <Stat
+          name="CALORIES (KCAL)"
+          icon="fire"
+          value={stats?.calories || "--"}
+        />
         <Stat name="TIME" icon="map" value={"--"} />
       </Row>
     </View>
@@ -48,5 +56,5 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-  }
+  },
 });

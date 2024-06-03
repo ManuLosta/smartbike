@@ -1,5 +1,5 @@
-import {View, StyleSheet, Text} from "react-native";
-import {FontAwesome6} from "@expo/vector-icons";
+import { View, StyleSheet, Text } from "react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function Stat({ name, icon, value }) {
   return (
@@ -7,10 +7,11 @@ export default function Stat({ name, icon, value }) {
       <Text style={styles.value}>{value}</Text>
       <View style={styles.nameContainer}>
         <FontAwesome6 name={icon} size={20} />
-        <Text style={styles.name}>{name}</Text><View />
+        <Text style={styles.name}>{name}</Text>
+        <View />
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -32,6 +33,6 @@ const styles = StyleSheet.create({
   },
   name: {
     color: "#808080",
-    fontWeight: "light"
-  }
+    fontWeight: "light",
+  },
 });

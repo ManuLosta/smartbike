@@ -53,6 +53,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 60,
     height: 60,
-
-  }
+  },
 });

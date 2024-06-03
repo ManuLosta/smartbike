@@ -52,6 +52,14 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="[session]"
+        options={{
+          href: {
+            pathname: "/[session]",
+          },
+        }}
+      />
     </Tabs>
   );
 }

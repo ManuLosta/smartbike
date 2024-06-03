@@ -1,5 +1,5 @@
 import { Stack } from "expo-router/stack";
-import {MqttProvider} from "../context/MqttContext";
+import { MqttProvider } from "../context/MqttContext";
 
 export default function Layout() {
   return (
