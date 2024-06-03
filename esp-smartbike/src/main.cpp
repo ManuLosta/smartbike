@@ -11,6 +11,7 @@ TinyGPSPlus gps;
 #include "mqtt.h"
 #include "globals.h"
 #include "mqtt_actions.h"
+#include "hw.h"
 
 Data data;
 
@@ -37,7 +38,6 @@ double speeds[] = {0.0, 13.0, 16.0, 19.0, 22.5, 24.0, 25.5, 27.0, 29.0, 30.55, 3
 double coefficient[] = {0.0, 0.00049167, 0.00059167, 0.00071, 0.00085333, 0.000935, 0.001025, 0.001125, 0.00123333, 0.00135167, 0.001485, 0.001625, 0.001955, 0.00235167};
 
 int findClosestIndex(double arr[], int left, int right, int target);
-void checkButtons();
 
 void setup(void)
 {
@@ -53,6 +53,8 @@ void setup(void)
   pinMode(BUTTON_PIN_PREV, INPUT);
   pinMode(BUTTON_PIN_NEXT, INPUT);
 
+  init_hw();
+
   data.distance = 0.0;
   data.p_altitude = 0.0;
 }
@@ -60,6 +62,22 @@ void setup(void)
 void loop(void)
 {
   test_mqtt();
+  int nextButton = verify_hw(PUSH_NEXT);
+  int prevButton = verify_hw(PUSH_PREV);
+
+  if (nextButton == BUTTON)
+  {
+      Serial.println("Next button pressed");
+      SCREEN = 0;
+      // Handle next button press
+  }
+
+  if (prevButton == BUTTON)
+  {
+      Serial.println("Previous button pressed");
+      SCREEN = 1;
+      // Handle previous button press
+  }
   unsigned long currentMillis = millis();
   while (Serial2.available() > 0)
   {
@@ -98,7 +116,6 @@ void loop(void)
 
         if (HAS_SESSION)
         {
-          checkButtons();
           display_data(data);
           if (currentMillis - lastPublishTime >= publishInterval)
           {
@@ -134,35 +151,6 @@ void loop(void)
     while (true)
       ;
   }
-}
-
-
-void checkButtons() 
-{
-  int readPrev = digitalRead(BUTTON_PIN_PREV);
-  int readNext = digitalRead(BUTTON_PIN_NEXT);
-
-
-  if ((millis() - lastDebounceTime) > debounceDelay) 
-  {
-    if (readPrev != prevButtonState) {
-      prevButtonState = readPrev;
-      if (prevButtonState == HIGH) 
-      {
-        SCREEN = 0;
-      }
-    } else if (readNext != nextButtonState) 
-    {
-      nextButtonState = readNext;
-      if (nextButtonState == HIGH) 
-      {
-        SCREEN = 1;
-      }
-    }
-  }
-
-  lastNextButtonState = readNext;
-  lastPrevButtonState = readPrev;
 }
 
 int findClosestIndex(double arr[], int left, int right, int target) {
