@@ -6,7 +6,7 @@ export default function Stat({ name, icon, value }) {
     <View style={styles.container}>
       <Text style={styles.value}>{value}</Text>
       <View style={styles.nameContainer}>
-        <FontAwesome6 name={icon} size={20} />
+        {icon}
         <Text style={styles.name}>{name}</Text>
         <View />
       </View>

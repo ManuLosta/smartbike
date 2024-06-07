@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import dayjs from "dayjs";
-import {Link} from "expo-router";
+import { Link } from "expo-router";
 import Constants from "expo-constants/src/Constants";
 
 export default function Tab() {
@@ -9,9 +9,7 @@ export default function Tab() {
 
   useEffect(() => {
     async function fetchSessions() {
-      const response = await fetch(
-        "http://54.172.43.101:3000",
-      );
+      const response = await fetch("http://3.83.197.166:3000");
       const sessions = await response.json();
       console.log(sessions);
       setSessions(sessions);
@@ -21,24 +19,32 @@ export default function Tab() {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: "#fff" }}>
       <View style={styles.container}>
         {sessions.map((session) => (
           <Link
             href={{
               pathname: "saved-sessions/[session]",
-              params: {session: session._id},
+              params: { session: session._id },
             }}
             style={styles.dateContainer}
           >
             <View>
               <Text style={styles.sessionText}>
-                {dayjs(session.start_time).format("ddd MMMM D, YYYY")} cycling session
+                {dayjs(session.start_time).format("ddd MMMM D, YYYY")} cycling
+                session
               </Text>
             </View>
             <View>
               <Text>DISTANCE: {session.distance} km</Text>
-              <Text>DURATION: {dayjs(session.end_time).from(session.start_time)}</Text>
+              <Text>
+                DURATION:{" "}
+                {dayjs(session.end_time).diff(
+                  dayjs(session.start_time),
+                  "minutes",
+                )}{" "}
+                min
+              </Text>
             </View>
           </Link>
         ))}
@@ -69,5 +75,5 @@ const styles = StyleSheet.create({
   sessionText: {
     fontWeight: "bold",
     fontSize: 20,
-  }
+  },
 });
