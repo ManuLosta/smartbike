@@ -1,11 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { useMqtt } from "../context/MqttContext";
 import { useEffect } from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import Octicons from "@expo/vector-icons/Octicons";
-import { AntDesign } from "@expo/vector-icons";
 import Stat from "./Stat";
 
 export default function SessionStats({ stats }) {

@@ -16,7 +16,7 @@ export const createSession = async () => {
 export const endSession = async () => {
     await Session.findOneAndUpdate(
         { isActive: true },
-        { $set: { isActive: false } },
+        { $set: { isActive: false, end_time: new Date() } },
         { new: false },
     )
 }

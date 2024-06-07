@@ -20,6 +20,7 @@ export default function TabLayout() {
         tabBarIconStyle: {
           marginBottom: -5, // Adjusts the position of the icon
         },
+        headerShown: false,
       }}
     >
       <Tabs.Screen
@@ -50,14 +51,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <AntDesign size={28} name="setting" color={color} />
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="[session]"
-        options={{
-          href: {
-            pathname: "/[session]",
-          },
         }}
       />
     </Tabs>

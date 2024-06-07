@@ -47,7 +47,7 @@ export default function Tab() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight,
     flex: 1,
     backgroundColor: "#fff",
   },
