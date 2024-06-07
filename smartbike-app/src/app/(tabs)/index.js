@@ -1,10 +1,10 @@
-import {View, StyleSheet} from "react-native";
+import { View, StyleSheet } from "react-native";
 import StartButton from "../../components/StartButton";
 import SessionStats from "../../components/SessionStats";
 import Constants from "expo-constants/src/Constants";
-import MapView, {Marker} from "react-native-maps";
-import {useMqtt} from "../../context/MqttContext";
-import {useEffect, useState} from "react";
+import MapView, { Marker } from "react-native-maps";
+import { useMqtt } from "../../context/MqttContext";
+import { useEffect, useState } from "react";
 
 export default function Tab() {
   const { mqttClient, subscribeToTopic, mqttData } = useMqtt();
@@ -25,20 +25,22 @@ export default function Tab() {
       longitude: Number(mqttData?.message?.loc.lng) || 0,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
-    })
-    console.log(region)
+    });
+    console.log(region);
   }, [mqttData]);
 
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        region={region}
-      >
-        <Marker coordinate={{latitude: region.latitude, longitude: region.longitude}} />
+      <MapView style={styles.map} region={region}>
+        <Marker
+          coordinate={{
+            latitude: region.latitude,
+            longitude: region.longitude,
+          }}
+        />
       </MapView>
-      <SessionStats stats={mqttData?.message}/>
-      <StartButton/>
+      <SessionStats stats={mqttData?.message} />
+      <StartButton />
     </View>
   );
 }
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   map: {
-    width: '100%',
-    height: '40%',
-  }
+    width: "100%",
+    height: "40%",
+  },
 });
