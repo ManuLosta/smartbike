@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, ActivityIndicator, ScrollView } from "react-native";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
@@ -41,10 +35,7 @@ export default function Session() {
   };
 
   const averageSpeed = (velocities) => {
-    const sum = velocities.reduce(
-      (acc, curr) => acc + curr.velocity,
-      0,
-    );
+    const sum = velocities.reduce((acc, curr) => acc + curr.velocity, 0);
     return sum / velocities.length;
   };
 
@@ -84,7 +75,7 @@ export default function Session() {
           />
           <Stat
             name="TIME (MIN)"
-            icon={<FontAwesome6 name="map" />}
+            icon={<FontAwesome6 name="clock" />}
             value={dayjs(session.end_time).diff(
               dayjs(session.start_time),
               "minutes",

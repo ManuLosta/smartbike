@@ -1,4 +1,4 @@
-import MapView, { Polygon } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { StyleSheet } from "react-native";
 
 export default function MapPoints({ points }) {
@@ -43,8 +43,12 @@ export default function MapPoints({ points }) {
   };
 
   return (
-    <MapView style={styles.map} region={startingRegion}>
-      <Polygon
+    <MapView
+      provider={PROVIDER_GOOGLE}
+      style={styles.map}
+      region={startingRegion}
+    >
+      <Polyline
         coordinates={points.map((point) => ({
           latitude: point.latitude,
           longitude: point.longitude,

@@ -83,7 +83,7 @@ void loop(void)
   {
     if (gps.encode(Serial2.read()))
     {
-      if (gps.satellites.value() >= 0)
+      if (gps.satellites.value() >= 4)
       {
         data.loc_lat = gps.location.lat();
         data.loc_lng = gps.location.lng();

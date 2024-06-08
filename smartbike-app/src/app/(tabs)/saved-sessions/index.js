@@ -1,61 +1,77 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-import dayjs from "dayjs";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "expo-router";
+import dayjs from "dayjs";
 import Constants from "expo-constants/src/Constants";
 
-export default function Tab() {
+export default function SavedSessions() {
   const [sessions, setSessions] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const fetchSessions = useCallback(async () => {
+    setRefreshing(true);
+    const response = await fetch("http://3.83.197.166:3000");
+    const data = await response.json();
+    setSessions(data);
+    setRefreshing(false);
+  }, []);
 
   useEffect(() => {
-    async function fetchSessions() {
-      const response = await fetch("http://3.83.197.166:3000");
-      const sessions = await response.json();
-      console.log(sessions);
-      setSessions(sessions);
-    }
-
     fetchSessions();
   }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: "#fff" }}>
-      <View style={styles.container}>
-        {sessions.map((session) => (
-          <Link
-            href={{
-              pathname: "saved-sessions/[session]",
-              params: { session: session._id },
-            }}
-            style={styles.dateContainer}
-          >
-            <View>
-              <Text style={styles.sessionText}>
-                {dayjs(session.start_time).format("ddd MMMM D, YYYY")} cycling
-                session
-              </Text>
-            </View>
-            <View>
-              <Text>DISTANCE: {session.distance} km</Text>
-              <Text>
-                DURATION:{" "}
-                {dayjs(session.end_time).diff(
-                  dayjs(session.start_time),
-                  "minutes",
-                )}{" "}
-                min
-              </Text>
-            </View>
-          </Link>
-        ))}
-      </View>
-    </ScrollView>
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        style={{ backgroundColor: "#fff" }}
+        refreshControl={
+          <RefreshControl onRefresh={fetchSessions} refreshing={refreshing} />
+        }
+      >
+        <View style={styles.container}>
+          {sessions.map((session) => (
+            <Link
+              href={{
+                pathname: "saved-sessions/[session]",
+                params: { session: session._id },
+              }}
+              style={styles.dateContainer}
+              key={session._id}
+            >
+              <View>
+                <Text style={styles.sessionText}>
+                  {dayjs(session.start_time).format("ddd MMMM D, YYYY")} cycling
+                  session
+                </Text>
+              </View>
+              <View>
+                <Text>DISTANCE: {session.distance} km</Text>
+                <Text>
+                  DURATION:{" "}
+                  {dayjs(session.end_time).diff(
+                    dayjs(session.start_time),
+                    "minutes"
+                  )}{" "}
+                  min
+                </Text>
+              </View>
+            </Link>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#fff",
