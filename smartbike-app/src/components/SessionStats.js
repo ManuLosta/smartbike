@@ -47,7 +47,6 @@ export default function SessionStats({ stats }) {
           icon={<FontAwesome6 name="fire" />}
           value={stats?.calories || "--"}
         />
-        <Stat name="TIME" icon={<FontAwesome6 name="map" />} value={"--"} />
       </Row>
     </View>
   );

@@ -1,13 +1,7 @@
-import MapView, { Polygon } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 import { StyleSheet } from "react-native";
 
 export default function MapPoints({ points }) {
-  const pointsOnMap = points.map((point) => ({
-    latitude: point.latitude,
-    longitude: point.longitude,
-  }));
-  console.log(pointsOnMap);
-
   const southest = points.reduce((acc, point) => {
     if (point.latitude < acc.latitude) {
       return point;
@@ -49,9 +43,16 @@ export default function MapPoints({ points }) {
   };
 
   return (
-    <MapView style={styles.map} region={startingRegion}>
-      <Polygon
-        coordinates={pointsOnMap}
+    <MapView
+      provider={PROVIDER_GOOGLE}
+      style={styles.map}
+      region={startingRegion}
+    >
+      <Polyline
+        coordinates={points.map((point) => ({
+          latitude: point.latitude,
+          longitude: point.longitude,
+        }))}
         strokeWidth={2}
         strokeColor={"red"}
       />

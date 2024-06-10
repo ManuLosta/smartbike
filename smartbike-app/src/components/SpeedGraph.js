@@ -24,7 +24,9 @@ export default function SpeedGraph({ velocities }) {
 
   return (
     <View style={{ backgroundColor: "#fff" }}>
-      <Text style={{ fontWeight: "bold", fontSize: 20, padding: 15 }} >Speed graph</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 20, padding: 15 }}>
+        Speed graph
+      </Text>
       <LineChart
         data={data}
         width={Dimensions.get("window").width - 20}
