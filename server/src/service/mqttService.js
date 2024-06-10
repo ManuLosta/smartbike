@@ -34,6 +34,8 @@ export const appendData = async (dataJson) => {
     session.location.push(location)
     session.distance = data.distance
     session.altitude = data.altitude
+    session.calories = data.calories
+    session.p_altitude = data.p_altitude
 
     await session.save()
 }
