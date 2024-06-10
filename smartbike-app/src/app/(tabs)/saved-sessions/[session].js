@@ -54,7 +54,7 @@ export default function Session() {
       <View style={styles.container}>
         <Row>
           <Stat
-            name="DISTANCE (M)"
+            name="DISTANCE (KM)"
             icon={<FontAwesome6 name="map" />}
             value={session.distance}
           />

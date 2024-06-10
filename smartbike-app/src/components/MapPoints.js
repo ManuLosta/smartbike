@@ -2,6 +2,12 @@ import MapView, { Polygon } from "react-native-maps";
 import { StyleSheet } from "react-native";
 
 export default function MapPoints({ points }) {
+  const pointsOnMap = points.map((point) => ({
+    latitude: point.latitude,
+    longitude: point.longitude,
+  }));
+  console.log(pointsOnMap);
+
   const southest = points.reduce((acc, point) => {
     if (point.latitude < acc.latitude) {
       return point;
@@ -45,10 +51,7 @@ export default function MapPoints({ points }) {
   return (
     <MapView style={styles.map} region={startingRegion}>
       <Polygon
-        coordinates={points.map((point) => ({
-          latitude: point.latitude,
-          longitude: point.longitude,
-        }))}
+        coordinates={pointsOnMap}
         strokeWidth={2}
         strokeColor={"red"}
       />

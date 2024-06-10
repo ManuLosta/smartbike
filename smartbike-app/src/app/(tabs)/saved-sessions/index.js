@@ -23,6 +23,7 @@ export default function Tab() {
       <View style={styles.container}>
         {sessions.map((session) => (
           <Link
+            key={session._id}
             href={{
               pathname: "saved-sessions/[session]",
               params: { session: session._id },
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight + 10,
     backgroundColor: "#fff",
   },
   sessionsContainer: {
